@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Gene ExtendedSnowdogMenu
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <gene_snowdog_menu>
+            <general>
+                <enabled>0</enabled>
+                <mobile_menu_style>expand</mobile_menu_style>
+            </general>
+        </gene_snowdog_menu>
+    </default>
+</config>

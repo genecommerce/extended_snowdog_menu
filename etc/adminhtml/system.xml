@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Gene ExtendedSnowdogMenu
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="gene" translate="label" sortOrder="120">
+            <label>Gene</label>
+        </tab>
+        <section id="gene_snowdog_menu" translate="label" type="text" sortOrder="1100" showInDefault="1">
+            <label>Snowdog Menu</label>
+            <tab>gene</tab>
+            <resource>Gene_ExtendedSnowdogMenu::store_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <field id="mobile_menu_style" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Mobile Menu Style</label>
+                    <source_model>Gene\ExtendedSnowdogMenu\Model\System\Config\Source\MenuStyleOptions</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
