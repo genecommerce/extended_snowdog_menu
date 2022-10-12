@@ -14,6 +14,11 @@
             <tab>gene</tab>
             <resource>Gene_ExtendedSnowdogMenu::store_config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="5" showInDefault="1">
+                    <label>Menu Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="mobile_menu_style" translate="label" type="select" sortOrder="10" showInDefault="1">
                     <label>Mobile Menu Style</label>
                     <source_model>Gene\ExtendedSnowdogMenu\Model\System\Config\Source\MenuStyleOptions</source_model>

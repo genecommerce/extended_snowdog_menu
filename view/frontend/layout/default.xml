@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Gene ExtendedSnowdogMenu
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="main.menu.mobile">
+            <arguments>
+                <argument name="menu_style_view_model" xsi:type="object">Gene\ExtendedSnowdogMenu\ViewModel\MenuStyle</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
