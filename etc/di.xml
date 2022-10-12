@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Gene ExtendedSnowdogMenu
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Gene\ExtendedSnowdogMenu\Api\Data\NodeInterface" type="Gene\ExtendedSnowdogMenu\Model\Node" />
+    <preference for="Snowdog\Menu\Block\Adminhtml\Edit\Tab\Nodes" type="Gene\ExtendedSnowdogMenu\Block\Adminhtml\Edit\Tab\Nodes" />
+    <preference for="Snowdog\Menu\Block\Menu" type="Gene\ExtendedSnowdogMenu\Block\Menu" />
+    <preference for="Snowdog\Menu\Service\Menu\SaveRequestProcessor" type="Gene\ExtendedSnowdogMenu\Service\Menu\SaveRequestProcessor" />
+    <type name="Gene\ExtendedSnowdogMenu\Controller\Adminhtml\Category\ThumbnailImage\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Gene\ExtendedSnowdogMenu\Model\ImageUploader</argument>
+        </arguments>
+    </type>
+    <preference for="Snowdog\Menu\Block\NodeType\Category" type="Gene\ExtendedSnowdogMenu\Block\NodeType\Category" />
+</config>
