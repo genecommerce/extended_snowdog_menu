@@ -122,7 +122,8 @@ class Nodes extends SnowdogTabNodes implements TabInterface
                 'image' => $node->getImage(),
                 'image_url' => $node->getImage() ? $this->imageFile->getUrl($node->getImage()) : null,
                 'image_alt_text' => $node->getImageAltText(),
-                'columns' => $this->renderNodeList($level + 1, $node->getId(), $data) ?: []
+                'columns' => $this->renderNodeList($level + 1, $node->getId(), $data) ?: [],
+                'selected_item_id' => $node->getSelectedItemId()
             ];
         }
         return $menu;

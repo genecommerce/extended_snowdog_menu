@@ -229,6 +229,8 @@ class SaveRequestProcessor extends \Snowdog\Menu\Service\Menu\SaveRequestProcess
 
         $nodeObject->setImage($nodeData['image'] ?? null);
         $nodeObject->setImageAltText($nodeData['image_alt_text'] ?? null);
+
+        $nodeObject->setSelectedItemId($nodeData['selected_item_id'] ?? null);
     }
 
     /**
