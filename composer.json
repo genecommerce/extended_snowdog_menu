@@ -3,10 +3,10 @@
     "description": "Extended functionality of snowdog menu extension based on our requirement",
     "require": {
         "magento/framework": "*",
-        "snowdog/module-menu": "*"
+        "snowdog/module-menu": "^2.22"
     },
     "type": "magento2-module",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": [
         "Proprietary"
     ],
