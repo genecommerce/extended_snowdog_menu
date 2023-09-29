@@ -81,4 +81,12 @@ class Category extends SnowdogCategoryBlock
         }
         return $result ?? null;
      }
+
+    /**
+     * @return array
+     */
+    public function getNodeCacheKeyInfo()
+    {
+        return [];
+    }
 }

@@ -15,4 +15,6 @@
         </arguments>
     </type>
     <preference for="Snowdog\Menu\Block\NodeType\Category" type="Gene\ExtendedSnowdogMenu\Block\NodeType\Category" />
+    <preference for="Snowdog\Menu\Block\NodeType\CategoryChild" type="Gene\ExtendedSnowdogMenu\Block\NodeType\CategoryChild" />
+    <preference for="Snowdog\Menu\Block\NodeType\CmsPage" type="Gene\ExtendedSnowdogMenu\Block\NodeType\CmsPage" />
 </config>
