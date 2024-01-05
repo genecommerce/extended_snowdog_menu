@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.6
+### Changed
+- updated for compatibility with 2.24.1
+
 ## 1.0.5
 ### Changed
 - add preferences to remove amount of cache keys generated for a menu 

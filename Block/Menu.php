@@ -16,6 +16,9 @@ use Snowdog\Menu\Model\Menu\Node\Image\File as ImageFile;
 use Snowdog\Menu\Model\NodeTypeProvider;
 use Snowdog\Menu\Model\TemplateResolver;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class Menu extends SnowdogBlockMenu implements IdentityInterface
 {
     /**
@@ -25,6 +28,7 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
 
     /**
      * Menu constructor.
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      * @param Template\Context $context
      * @param EventManager $eventManager
      * @param MenuRepositoryInterface $menuRepository
