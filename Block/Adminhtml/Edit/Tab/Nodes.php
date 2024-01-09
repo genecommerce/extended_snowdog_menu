@@ -105,6 +105,7 @@ class Nodes extends SnowdogTabNodes implements TabInterface
             return false;
         }
         $nodes = $data[$level][$parent];
+        $menu = [];
         foreach ($nodes as $node) {
             $menu[] = [
                 'is_active' => $node->getIsActive(),

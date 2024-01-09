@@ -83,6 +83,8 @@ class SaveRequestProcessor extends \Snowdog\Menu\Service\Menu\SaveRequestProcess
     /**
      * @param MenuInterface $menu
      * @param array $nodes
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function saveData(MenuInterface $menu, array $nodes = []): void
     {
