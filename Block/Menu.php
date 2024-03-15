@@ -27,6 +27,8 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
      */
     private $imageFile;
 
+    private $bulkLoadedNodesData = false;
+
     /**
      * Menu constructor.
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
