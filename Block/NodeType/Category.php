@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace Gene\ExtendedSnowdogMenu\Block\NodeType;
 
 use Gene\ExtendedSnowdogMenu\Helper\Data;
-use Magento\Eav\Model\ResourceModel\AttributeValue;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template\Context;
-use Magento\Store\Model\StoreManagerInterface;
 use Snowdog\Menu\Model\NodeType\Category as SnowdogCategory;
 use Snowdog\Menu\Block\NodeType\Category as SnowdogCategoryBlock;
 use Snowdog\Menu\Model\TemplateResolver;
+use Gene\ExtendedSnowdogMenu\Service\Performance\PreloadCategoryThumbnails;
 
 class Category extends SnowdogCategoryBlock
 {
@@ -23,8 +22,6 @@ class Category extends SnowdogCategoryBlock
      * @param SnowdogCategory $categoryModel
      * @param TemplateResolver $templateResolver
      * @param Data $helper
-     * @param AttributeValue $attributeValue
-     * @param StoreManagerInterface $storeManager
      * @param array $data
      */
     public function __construct(
@@ -33,8 +30,7 @@ class Category extends SnowdogCategoryBlock
         SnowdogCategory $categoryModel,
         TemplateResolver $templateResolver,
         private readonly Data $helper,
-        private readonly AttributeValue $attributeValue,
-        private readonly StoreManagerInterface $storeManager,
+        private readonly PreloadCategoryThumbnails $preloadCategoryThumbnails,
         array $data = []
     ) {
         parent::__construct($context, $coreRegistry, $categoryModel, $templateResolver, $data);
@@ -47,7 +43,8 @@ class Category extends SnowdogCategoryBlock
      */
     public function getImageThumb(int $nodeId)
     {
-        return $this->getCategoryThumb($this->getCategoryId($nodeId));
+        $categoryId = $this->getCategoryId($nodeId);
+        return $this->getCategoryThumb($categoryId);
     }
 
     /**
@@ -65,22 +62,8 @@ class Category extends SnowdogCategoryBlock
 
     protected function getCategoryThumb(int $categoryId)
     {
-        $values = $this->attributeValue->getValues(
-            \Magento\Catalog\Api\Data\CategoryInterface::class,
-            $categoryId,
-            ['menu_image_thumb'],
-            [$this->storeManager->getStore()->getId(), '0']
-        );
-        if (!empty($values)) {
-            foreach ($values as $row) {
-                if (isset($row['value'])) {
-                    $result = $row['value'];
-                    break;
-                }
-            }
-        }
-        return $result ?? null;
-     }
+        return $this->preloadCategoryThumbnails->getThumbnailForCategoryId($categoryId);
+    }
 
     /**
      * @return array
