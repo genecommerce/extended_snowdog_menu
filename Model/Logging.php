@@ -33,5 +33,13 @@ class Logging
         if (is_string($serializedNodes)) {
             $this->logger->info("Snowdog Menu item saved", compact('serializedNodes'));
         }
+
+        $id = $this->request->getParam('menu_id');
+        $title = $this->request->getParam('title');
+
+        return $eventModel->setInfo(strtr(":id :: :title", [
+            ':id' => $this->request->getParam('menu_id'),
+            ':title' => $this->request->getParam('title'),
+        ]));
     }
 }
