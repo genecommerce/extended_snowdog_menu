@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.8
+### Changed
+- The snowdog menu title has been added in report details 
+
 ## 1.0.7
 ### Changed
 - Added the logging the saving in admin panel (just for main model)
