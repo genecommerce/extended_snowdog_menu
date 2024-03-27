@@ -58,7 +58,19 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
         private readonly PreloadCategoryThumbnails $preloadCategoryThumbnails,
         array $data = []
     ) {
-        parent::__construct($context, $eventManager, $menuRepository, $nodeRepository, $nodeTypeProvider, $searchCriteriaFactory, $filterGroupBuilder, $templateResolver, $imageFile, $escaper, $data);
+        parent::__construct(
+            $context,
+            $eventManager,
+            $menuRepository,
+            $nodeRepository,
+            $nodeTypeProvider,
+            $searchCriteriaFactory,
+            $filterGroupBuilder,
+            $templateResolver,
+            $imageFile,
+            $escaper,
+            $data
+        );
         $this->imageFile = $imageFile;
     }
 
@@ -136,7 +148,10 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
     private function preloadCategoryThumbnails()
     {
         $nodesTree = $this->getNodesTree();
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($nodesTree), \RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveArrayIterator($nodesTree),
+            \RecursiveIteratorIterator::SELF_FIRST
+        );
 
         $flattenedData = [];
         foreach ($iterator as $value) {
