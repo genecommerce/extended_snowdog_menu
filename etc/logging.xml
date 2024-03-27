@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<logging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Logging:etc/logging.xsd">
+    <groups>
+        <group name="snowmenu_menu">
+            <label translate="true">Snowdog Menu</label>
+            <expected_models>
+                <expected_model class="Snowdog\Menu\Model\Menu"/>
+            </expected_models>
+            <events>
+                <event controller_action="snowmenu_menu_edit" action_alias="view"/>
+                <event controller_action="snowmenu_menu_save" action_alias="save"
+                       post_dispatch="Gene\ExtendedSnowdogMenu\Model\Logging::postDispatchMenuSaved"/>
+            </events>
+        </group>
+    </groups>
+</logging>

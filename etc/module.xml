@@ -8,6 +8,7 @@
     <module name="Gene_ExtendedSnowdogMenu" setup_version="1.0.0">
         <sequence>
             <module name="Snowdog_Menu"/>
+            <module name="Magento_Logging"/>
         </sequence>
     </module>
 </config>
