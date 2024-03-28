@@ -15,6 +15,7 @@ use Snowdog\Menu\Block\Menu as SnowdogBlockMenu;
 use Snowdog\Menu\Model\Menu\Node\Image\File as ImageFile;
 use Snowdog\Menu\Model\NodeTypeProvider;
 use Snowdog\Menu\Model\TemplateResolver;
+use Gene\ExtendedSnowdogMenu\Service\Performance\PreloadCategoryThumbnails;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -25,6 +26,8 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
      * @var ImageFile
      */
     private $imageFile;
+
+    private $bulkLoadedNodesData = false;
 
     /**
      * Menu constructor.
@@ -52,9 +55,22 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
         TemplateResolver $templateResolver,
         ImageFile $imageFile,
         Escaper $escaper,
+        private readonly PreloadCategoryThumbnails $preloadCategoryThumbnails,
         array $data = []
     ) {
-        parent::__construct($context, $eventManager, $menuRepository, $nodeRepository, $nodeTypeProvider, $searchCriteriaFactory, $filterGroupBuilder, $templateResolver, $imageFile, $escaper, $data);
+        parent::__construct(
+            $context,
+            $eventManager,
+            $menuRepository,
+            $nodeRepository,
+            $nodeTypeProvider,
+            $searchCriteriaFactory,
+            $filterGroupBuilder,
+            $templateResolver,
+            $imageFile,
+            $escaper,
+            $data
+        );
         $this->imageFile = $imageFile;
     }
 
@@ -108,5 +124,42 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
             ->setAdditionalData($node->getAdditionalData());
 
         return $nodeBlock;
+    }
+
+    /**
+     * @param $level
+     * @param $parent
+     * @return array|mixed
+     */
+    public function getNodes($level = 0, $parent = null)
+    {
+        $nodes = parent::getNodes($level, $parent);
+        if ($level === 0 && !$this->bulkLoadedNodesData) {
+            $this->bulkLoadedNodesData = true;
+            $this->preloadCategoryThumbnails();
+        }
+        return $nodes;
+    }
+
+    /**
+     * @return void
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    private function preloadCategoryThumbnails()
+    {
+        $nodesTree = $this->getNodesTree();
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveArrayIterator($nodesTree),
+            \RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        $flattenedData = [];
+        foreach ($iterator as $value) {
+            if ($value instanceof \Snowdog\Menu\Model\Menu\Node) {
+                $flattenedData[] = (int) $value->getContent();
+            }
+        }
+        $categoryIds = array_unique($flattenedData);
+        $this->preloadCategoryThumbnails->loadCategoryThumbnails($categoryIds);
     }
 }
