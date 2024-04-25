@@ -9,6 +9,7 @@ use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\Event\Manager as EventManager;
+use Magento\Framework\View\Element\Template\Context;
 use Snowdog\Menu\Api\MenuRepositoryInterface;
 use Snowdog\Menu\Api\NodeRepositoryInterface;
 use Snowdog\Menu\Block\Menu as SnowdogBlockMenu;
@@ -16,6 +17,7 @@ use Snowdog\Menu\Model\Menu\Node\Image\File as ImageFile;
 use Snowdog\Menu\Model\NodeTypeProvider;
 use Snowdog\Menu\Model\TemplateResolver;
 use Gene\ExtendedSnowdogMenu\Service\Performance\PreloadCategoryThumbnails;
+use Gene\ExtendedSnowdogMenu\Block\NodeType\Category as CategoryNode;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -32,7 +34,7 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
     /**
      * Menu constructor.
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
-     * @param Template\Context $context
+     * @param Context $context
      * @param EventManager $eventManager
      * @param MenuRepositoryInterface $menuRepository
      * @param NodeRepositoryInterface $nodeRepository
@@ -42,6 +44,8 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
      * @param TemplateResolver $templateResolver
      * @param ImageFile $imageFile
      * @param Escaper $escaper
+     * @param PreloadCategoryThumbnails $preloadCategoryThumbnails
+     * @param CategoryNode $categoryNode
      * @param array $data
      */
     public function __construct(
@@ -56,6 +60,7 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
         ImageFile $imageFile,
         Escaper $escaper,
         private readonly PreloadCategoryThumbnails $preloadCategoryThumbnails,
+        private readonly CategoryNode $categoryNode,
         array $data = []
     ) {
         parent::__construct(
@@ -156,7 +161,12 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
         $flattenedData = [];
         foreach ($iterator as $value) {
             if ($value instanceof \Snowdog\Menu\Model\Menu\Node) {
-                $flattenedData[] = (int) $value->getContent();
+                if ($value->getType() === 'category') {
+                    $category = $this->categoryNode->getCategory((int)$value->getNodeId());
+                    $flattenedData[] = (int) $category->getRowId();
+                } else {
+                    $flattenedData[] = (int)$value->getContent();
+                }
             }
         }
         $categoryIds = array_unique($flattenedData);
