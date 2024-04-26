@@ -53,6 +53,10 @@ class Category extends SnowdogCategoryBlock
      */
     protected function getCategoryId(int $nodeId)
     {
+        // fix to retrieve row_id for attribute value lookup
+        if ($category = $this->getCategory($nodeId)) {
+            return (int) $category->getRowId();
+        }
         if (!isset($this->nodes[$nodeId])) {
             throw new \InvalidArgumentException('Invalid node identifier specified');
          }
