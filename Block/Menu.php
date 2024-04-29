@@ -161,9 +161,11 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
         $flattenedData = [];
         foreach ($iterator as $value) {
             if ($value instanceof \Snowdog\Menu\Model\Menu\Node) {
-                if ($value->getType() === 'category') {
-                    $category = $this->categoryNode->getCategory((int)$value->getNodeId());
-                    $flattenedData[] = (int) $category->getRowId();
+                if (
+                    $value->getType() === 'category' &&
+                    $category = $this->categoryNode->getCategory((int)$value->getNodeId())
+                ) {
+                    $flattenedData[] = (int)$category->getRowId();
                 } else {
                     $flattenedData[] = (int)$value->getContent();
                 }
