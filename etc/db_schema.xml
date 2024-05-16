@@ -1,7 +1,38 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="snowmenu_node" resource="default" comment="Snowdog Menu">
+        <column xsi:type="int" name="node_id" unsigned="true" nullable="false" identity="true"
+                comment="Node ID"/>
+        <column xsi:type="int" name="menu_id" unsigned="true" nullable="false" identity="false"
+                comment="Menu ID"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="255" comment="Node Type"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Node contents"/>
+        <column xsi:type="varchar" name="classes" nullable="true" length="255" comment="CSS class name"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="true" identity="false"
+                comment="Parent Node ID"/>
+        <column xsi:type="int" name="position" unsigned="true" nullable="false" identity="false"
+                comment="Node position"/>
+        <column xsi:type="int" name="level" unsigned="true" nullable="false" identity="false"
+                comment="Node level"/>
+        <column xsi:type="text" name="title" nullable="true" comment="Menu Title"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Modification Time"/>
+        <column xsi:type="smallint" name="is_active" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is Active"/>
+        <column xsi:type="tinyint" name="target" unsigned="false" nullable="true" identity="false"
+                default="0" comment="Target"/>
+        <column xsi:type="varchar" name="submenu_template" nullable="true" length="255" comment="Submenu Template"/>
+        <column xsi:type="varchar" name="node_template" nullable="true" length="255" comment="Node Template"/>
+        <column xsi:type="text" name="image" nullable="true" comment="Image"/>
+        <column xsi:type="text" name="image_alt_text" nullable="true" comment="Image Alt Text"/>
+        <column xsi:type="smallint" name="selected_item_id" unsigned="true" nullable="true" identity="false"
+                comment="Selected Item Id"/>
         <column xsi:type="text" name="font_color" nullable="true" comment="Font Color"/>
         <column xsi:type="text" name="font_weight" nullable="true" comment="Font Weight"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="node_id"/>
+        </constraint>
     </table>
 </schema>
