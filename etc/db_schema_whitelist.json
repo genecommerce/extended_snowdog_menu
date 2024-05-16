@@ -1,6 +1,24 @@
 {
     "snowmenu_node": {
         "column": {
+            "node_id": true,
+            "menu_id": true,
+            "type": true,
+            "content": true,
+            "classes": true,
+            "parent_id": true,
+            "position": true,
+            "level": true,
+            "title": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true,
+            "target": true,
+            "submenu_template": true,
+            "node_template": true,
+            "image": true,
+            "image_alt_text": true,
+            "selected_item_id": true,
             "font_color": true,
             "font_weight": true
         }
