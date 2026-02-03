@@ -39,8 +39,6 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
      * @param MenuRepositoryInterface $menuRepository
      * @param NodeRepositoryInterface $nodeRepository
      * @param NodeTypeProvider $nodeTypeProvider
-     * @param SearchCriteriaFactory $searchCriteriaFactory
-     * @param FilterGroupBuilder $filterGroupBuilder
      * @param TemplateResolver $templateResolver
      * @param ImageFile $imageFile
      * @param Escaper $escaper
@@ -54,13 +52,13 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
         MenuRepositoryInterface $menuRepository,
         NodeRepositoryInterface $nodeRepository,
         NodeTypeProvider $nodeTypeProvider,
-        SearchCriteriaFactory $searchCriteriaFactory,
-        FilterGroupBuilder $filterGroupBuilder,
         TemplateResolver $templateResolver,
         ImageFile $imageFile,
         Escaper $escaper,
         private readonly PreloadCategoryThumbnails $preloadCategoryThumbnails,
         private readonly CategoryNode $categoryNode,
+        \Magento\Framework\App\Http\Context $httpContext,
+        array $nodeTypeCaches = [],
         array $data = []
     ) {
         parent::__construct(
@@ -69,11 +67,11 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
             $menuRepository,
             $nodeRepository,
             $nodeTypeProvider,
-            $searchCriteriaFactory,
-            $filterGroupBuilder,
             $templateResolver,
             $imageFile,
             $escaper,
+            $httpContext,
+            $nodeTypeCaches,
             $data
         );
         $this->imageFile = $imageFile;
@@ -125,8 +123,12 @@ class Menu extends SnowdogBlockMenu implements IdentityInterface
             ->setImage($node->getImage())
             ->setImageUrl($node->getImage() ? $this->imageFile->getUrl($node->getImage()) : null)
             ->setImageAltText($node->getImageAltText())
+            ->setImageWidth($node->getImageWidth())
+            ->setImageHeight($node->getImageHeight())
             ->setCustomTemplate($node->getNodeTemplate())
-            ->setAdditionalData($node->getAdditionalData());
+            ->setAdditionalData($node->getAdditionalData())
+            ->setSelectedItemId($node->getSelectedItemId())
+            ->setCustomerGroups($node->getCustomerGroups());
 
         return $nodeBlock;
     }

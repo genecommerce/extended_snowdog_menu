@@ -9,6 +9,7 @@ use Magento\Framework\Registry;
 use Snowdog\Menu\Api\NodeRepositoryInterface;
 use Snowdog\Menu\Block\Adminhtml\Edit\Tab\Nodes as SnowdogTabNodes;
 use Snowdog\Menu\Controller\Adminhtml\Menu\Edit;
+use Snowdog\Menu\Model\CustomerGroupsProvider;
 use Snowdog\Menu\Model\Menu\Node\Image\File as ImageFile;
 use Snowdog\Menu\Model\NodeTypeProvider;
 use Snowdog\Menu\Model\VueProvider;
@@ -52,9 +53,10 @@ class Nodes extends SnowdogTabNodes implements TabInterface
         NodeTypeProvider $nodeTypeProvider,
         Registry $registry,
         VueProvider $vueProvider,
+        CustomerGroupsProvider $customerGroupsProvider,
         array $data = []
     ) {
-        parent::__construct($context, $nodeRepository, $imageFile, $nodeTypeProvider, $registry, $vueProvider, $data);
+        parent::__construct($context, $nodeRepository, $imageFile, $nodeTypeProvider, $registry, $vueProvider, $customerGroupsProvider, $data);
         $this->registry = $registry;
         $this->nodeRepository = $nodeRepository;
         $this->imageFile = $imageFile;
